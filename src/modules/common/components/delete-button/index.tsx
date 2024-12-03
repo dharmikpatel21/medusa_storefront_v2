@@ -1,3 +1,4 @@
+import { useCart } from "@lib/context/cart-context"
 import { deleteLineItem } from "@lib/data/cart"
 import { Spinner, Trash } from "@medusajs/icons"
 import { clx } from "@medusajs/ui"
@@ -14,13 +15,12 @@ const DeleteButton = ({
 }) => {
   const [isDeleting, setIsDeleting] = useState(false)
 
+  const { handleDeleteItem } = useCart()
+
   const handleDelete = async (id: string) => {
     setIsDeleting(true)
-    await deleteLineItem(id).catch((err) => {
-      setIsDeleting(false)
-    })
+    await handleDeleteItem(id)
   }
-
   return (
     <div
       className={clx(

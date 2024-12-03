@@ -109,7 +109,7 @@ export default function ProductActions({
   //   setIsAdding(false)
   // }
   const handleAddToCart = async () => {
-    if (!product?.variants?.[0]?.id) return null
+    if (!selectedVariant?.id) return null
 
     setIsAdding(true)
 
@@ -117,7 +117,7 @@ export default function ProductActions({
       lineItems: [
         {
           productVariant: {
-            ...product?.variants?.[0],
+            ...(selectedVariant as HttpTypes.StoreProductVariant),
             product,
           },
           quantity: 1,

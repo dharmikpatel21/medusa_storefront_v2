@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  addToCart,
   addToCartBulk,
   deleteLineItem,
   emptyCart,
@@ -151,11 +152,20 @@ export function CartProvider({
 
         setIsUpdatingCart(true)
 
-        await addToCartBulk({
-          lineItems: payload.lineItems.map((lineItem) => ({
-            variant_id: lineItem.productVariant.id,
-            quantity: lineItem.quantity,
-          })),
+        // await addToCartBulk({
+        //   lineItems: payload.lineItems.map((lineItem) => ({
+        //     variant_id: lineItem.productVariant.id,
+        //     quantity: lineItem.quantity,
+        //   })),
+        //   countryCode: countryCode as string,
+        // }).catch((e) => {
+        //   toast.error("Failed to add to cart")
+        //   setOptimisticCart(prevCart)
+        // })
+
+        await addToCart({
+          variantId: payload.lineItems[0].productVariant.id,
+          quantity: payload.lineItems[0].quantity,
           countryCode: countryCode as string,
         }).catch((e) => {
           toast.error("Failed to add to cart")
